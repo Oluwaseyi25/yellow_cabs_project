@@ -1,0 +1,25 @@
+[2024-02-06T20:22:51.672+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload manual__2024-02-06T20:22:50.448028+00:00 [queued]>
+[2024-02-06T20:22:51.682+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload manual__2024-02-06T20:22:50.448028+00:00 [queued]>
+[2024-02-06T20:22:51.682+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 1
+[2024-02-06T20:22:51.689+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): yellow_cabs_upload> on 2024-02-06 20:22:50.448028+00:00
+[2024-02-06T20:22:51.693+0000] {standard_task_runner.py:60} INFO - Started process 124 to run task
+[2024-02-06T20:22:51.696+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'yellow_cabs_dag', 'yellow_cabs_upload', 'manual__2024-02-06T20:22:50.448028+00:00', '--job-id', '13', '--raw', '--subdir', 'DAGS_FOLDER/yellow_cabs_project.py', '--cfg-path', '/tmp/tmp66w12nv2']
+[2024-02-06T20:22:51.698+0000] {standard_task_runner.py:88} INFO - Job 13: Subtask yellow_cabs_upload
+[2024-02-06T20:22:51.737+0000] {task_command.py:423} INFO - Running <TaskInstance: yellow_cabs_dag.yellow_cabs_upload manual__2024-02-06T20:22:50.448028+00:00 [running]> on host 49b06be5e1b6
+[2024-02-06T20:22:51.968+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='yellow_cabs_dag' AIRFLOW_CTX_TASK_ID='yellow_cabs_upload' AIRFLOW_CTX_EXECUTION_DATE='2024-02-06T20:22:50.448028+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-02-06T20:22:50.448028+00:00'
+[2024-02-06T20:23:17.608+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.7695348262786865 seconds
+[2024-02-06T20:23:24.483+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.671822547912598 seconds
+[2024-02-06T20:23:31.100+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.408126354217529 seconds
+[2024-02-06T20:23:37.593+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.305383920669556 seconds
+[2024-02-06T20:23:44.313+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.514907360076904 seconds
+[2024-02-06T20:23:50.855+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.352867364883423 seconds
+[2024-02-06T20:23:57.558+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.519891262054443 seconds
+[2024-02-06T20:24:04.206+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.42652702331543 seconds
+[2024-02-06T20:24:10.904+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.511171579360962 seconds
+[2024-02-06T20:24:17.667+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.572378635406494 seconds
+[2024-02-06T20:24:24.349+0000] {logging_mixin.py:188} INFO - inserted another chunk, took 6.469682216644287 seconds
+[2024-02-06T20:24:24.538+0000] {warnings.py:109} WARNING - /opt/***/dags/yellow_cabs_project.py:42: DtypeWarning: Columns (6) have mixed types. Specify dtype option on import or set low_memory=False.
+  for chunk in df_iter:
+
+[2024-02-06T20:24:30.297+0000] {local_task_job_runner.py:234} INFO - Task exited with return code -9
+[2024-02-06T20:24:30.491+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check

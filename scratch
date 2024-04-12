@@ -1,0 +1,111 @@
+docker build -t yellow_cabs_image . ( to build the docker image for yellow cabs project)
+# docker run --name yellowcabs-postgres -e  POSTGRES_USER=oluwaseyi -e POSTGRES_PASSWORD=root -e POSTGRES_DB=yellow_cabs_db --network oluwaseyi -d postgres
+# docker run --name my-pgadmin -p 82:80 -e 'PGADMIN_DEFAULT_EMAIL=omolewaoluranti@gmail.com' -e 'PGADMIN_DEFAULT_PASSWORD=0296' --network oluwaseyi -d dpage/pgadmin4
+# docker network create -d bridge oluwaseyi
+
+curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.8.1/docker-compose.yaml'
+
+mkdir -p ./dags ./logs ./plugins ./config
+echo -e "AIRFLOW_UID=$(id -u)" > .env
+
+
+
+import pyarrow.parquet as pq
+from sqlalchemy import create_engine
+from time import time
+
+merged_writer = None
+
+# Loop through the months
+for month in ['%0.2d' % i for i in range(1, 4)]:
+    # Construct the file URL
+    file_url = f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-{month}.parquet'
+
+    # Download and read the Parquet file directly
+    table = pq.read_table(file_url)
+
+    # Initialize the writer on the first iteration
+    if merged_writer is None:
+        merged_writer = pq.ParquetWriter("merged_data.parquet", table.schema)
+
+    # Write the data to the merged Parquet file
+    merged_writer.write_table(table)
+
+# Close the writer to finalize the merged Parquet file
+if merged_writer is not None:
+    merged_writer.close()
+
+# Connect to PostgreSQL
+conn_string = 'postgresql://oluwaseyi:root@postgres:5432/yellow_cabs_db'
+db = create_engine(conn_string)
+
+# Chunk size for processing data
+chunk_size = 200000
+num_rows = len(merged_writer)
+start = 0
+
+while start < num_rows:
+    end = min(start + chunk_size, num_rows)
+
+    # Directly use batch as it's already a Pandas DataFrame
+    batch = merged_writer[start:end].to_pandas()
+
+    # Insert the batch into the PostgreSQL table
+    time_start = time()
+    batch.to_sql('yellow_cabs_table', con=db, if_exists='append', index=False)
+    time_end = time()
+    print(f'Inserted another chunk, took {time_end - time_start} seconds')
+
+    start = end
+
+
+
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: oluwaseyi
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: yellow_cabs_db
+    ports:
+      - "5432:5432"
+    networks:
+      - oluwaseyi
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=omolewaoluranti@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=0296
+    ports:
+      - "82:80"
+    depends_on:
+      - postgres
+    networks:
+      - oluwaseyi
+
+
+  yellow_cabs_db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+
+    networks:
+      - oluwaseyi
+
+networks:
+  oluwaseyi:
+    driver: bridge
+
+
+FROM python:3.9
+
+WORKDIR /app
+
+COPY . /app
+
+RUN pip install pandas wget sqlalchemy psycopg2 pyarrow
+
+CMD ["python", "yellow_cabs_project.py"]

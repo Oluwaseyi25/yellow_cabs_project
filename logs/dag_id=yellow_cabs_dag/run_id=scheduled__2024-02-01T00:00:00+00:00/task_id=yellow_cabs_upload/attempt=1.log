@@ -1,0 +1,11 @@
+[2024-02-02T19:22:04.282+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-01T00:00:00+00:00 [queued]>
+[2024-02-02T19:22:04.378+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-01T00:00:00+00:00 [queued]>
+[2024-02-02T19:22:04.384+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 1
+[2024-02-02T19:22:04.458+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): yellow_cabs_upload> on 2024-02-01 00:00:00+00:00
+[2024-02-02T19:22:04.535+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'yellow_cabs_dag', 'yellow_cabs_upload', 'scheduled__2024-02-01T00:00:00+00:00', '--job-id', '8', '--raw', '--subdir', 'DAGS_FOLDER/yellow_cabs_project.py', '--cfg-path', '/tmp/tmpazfeuka6']
+[2024-02-02T19:22:04.578+0000] {standard_task_runner.py:88} INFO - Job 8: Subtask yellow_cabs_upload
+[2024-02-02T19:22:04.543+0000] {standard_task_runner.py:60} INFO - Started process 81 to run task
+[2024-02-02T19:22:04.715+0000] {task_command.py:423} INFO - Running <TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-01T00:00:00+00:00 [running]> on host 66814aa8a277
+[2024-02-02T19:22:11.076+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='yellow_cabs_dag' AIRFLOW_CTX_TASK_ID='yellow_cabs_upload' AIRFLOW_CTX_EXECUTION_DATE='2024-02-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-01T00:00:00+00:00'
+[2024-02-02T19:22:33.365+0000] {local_task_job_runner.py:234} INFO - Task exited with return code -9
+[2024-02-02T19:22:35.385+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check

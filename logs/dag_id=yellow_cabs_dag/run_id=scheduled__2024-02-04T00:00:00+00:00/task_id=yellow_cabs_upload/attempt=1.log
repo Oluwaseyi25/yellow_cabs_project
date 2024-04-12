@@ -1,0 +1,45 @@
+[2024-02-05T16:09:27.690+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-04T00:00:00+00:00 [queued]>
+[2024-02-05T16:09:27.693+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-04T00:00:00+00:00 [queued]>
+[2024-02-05T16:09:27.693+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 1
+[2024-02-05T16:09:27.698+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): yellow_cabs_upload> on 2024-02-04 00:00:00+00:00
+[2024-02-05T16:09:27.701+0000] {standard_task_runner.py:60} INFO - Started process 57 to run task
+[2024-02-05T16:09:27.703+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'yellow_cabs_dag', 'yellow_cabs_upload', 'scheduled__2024-02-04T00:00:00+00:00', '--job-id', '126', '--raw', '--subdir', 'DAGS_FOLDER/yellow_cabs_project.py', '--cfg-path', '/tmp/tmp5w52mqtc']
+[2024-02-05T16:09:27.704+0000] {standard_task_runner.py:88} INFO - Job 126: Subtask yellow_cabs_upload
+[2024-02-05T16:09:27.724+0000] {task_command.py:423} INFO - Running <TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-04T00:00:00+00:00 [running]> on host 66814aa8a277
+[2024-02-05T16:09:27.857+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='yellow_cabs_dag' AIRFLOW_CTX_TASK_ID='yellow_cabs_upload' AIRFLOW_CTX_EXECUTION_DATE='2024-02-04T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-04T00:00:00+00:00'
+[2024-02-05T16:09:42.447+0000] {local_task_job_runner.py:234} INFO - Task exited with return code -9
+[2024-02-05T16:09:42.638+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2024-02-05T18:11:20.298+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-04T00:00:00+00:00 [queued]>
+[2024-02-05T18:11:20.307+0000] {taskinstance.py:1957} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-04T00:00:00+00:00 [queued]>
+[2024-02-05T18:11:20.307+0000] {taskinstance.py:2171} INFO - Starting attempt 1 of 1
+[2024-02-05T18:11:20.315+0000] {taskinstance.py:2192} INFO - Executing <Task(PythonOperator): yellow_cabs_upload> on 2024-02-04 00:00:00+00:00
+[2024-02-05T18:11:20.320+0000] {standard_task_runner.py:60} INFO - Started process 117 to run task
+[2024-02-05T18:11:20.324+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'yellow_cabs_dag', 'yellow_cabs_upload', 'scheduled__2024-02-04T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/yellow_cabs_project.py', '--cfg-path', '/tmp/tmpqcijlu22']
+[2024-02-05T18:11:20.327+0000] {standard_task_runner.py:88} INFO - Job 6: Subtask yellow_cabs_upload
+[2024-02-05T18:11:20.364+0000] {task_command.py:423} INFO - Running <TaskInstance: yellow_cabs_dag.yellow_cabs_upload scheduled__2024-02-04T00:00:00+00:00 [running]> on host 49b06be5e1b6
+[2024-02-05T18:11:20.860+0000] {taskinstance.py:2481} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='yellow_cabs_dag' AIRFLOW_CTX_TASK_ID='yellow_cabs_upload' AIRFLOW_CTX_EXECUTION_DATE='2024-02-04T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-02-04T00:00:00+00:00'
+[2024-02-05T18:11:41.756+0000] {taskinstance.py:2699} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/yellow_cabs_project.py", line 32, in yellow_cabs_upload
+    pq_table.to_csv(output_file_path, index=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 3772, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/formats/format.py", line 1186, in to_csv
+    csv_formatter.save()
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/formats/csvs.py", line 240, in save
+    with get_handle(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/common.py", line 737, in get_handle
+    check_parent_directory(str(handle))
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/common.py", line 600, in check_parent_directory
+    raise OSError(rf"Cannot save file into a non-existent directory: '{parent}'")
+OSError: Cannot save file into a non-existent directory: '/opt/***/dags/yellow_cabs_project.py'
+[2024-02-05T18:11:41.765+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=yellow_cabs_dag, task_id=yellow_cabs_upload, execution_date=20240204T000000, start_date=20240205T181120, end_date=20240205T181141
+[2024-02-05T18:11:41.788+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 6 for task yellow_cabs_upload (Cannot save file into a non-existent directory: '/opt/***/dags/yellow_cabs_project.py'; 117)
+[2024-02-05T18:11:41.823+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-02-05T18:11:41.934+0000] {taskinstance.py:3281} INFO - 0 downstream tasks scheduled from follow-on schedule check

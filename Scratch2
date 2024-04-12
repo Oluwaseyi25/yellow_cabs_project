@@ -1,0 +1,96 @@
+import pandas as pd
+import pyarrow
+import pyarrow.parquet as pq
+import wget
+from sqlalchemy import create_engine
+from time import time
+
+merged_writer = None
+
+
+for month in ['%0.2d' % i for i in range(1, 4)]:
+    result = wget.download(f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-{month}.parquet')
+    table = pq.read_table(result)
+    if merged_writer is None:
+        merged_writer = pq.ParquetWriter("merged_data.parquet", table.schema)
+    merged_writer.write_table(table)
+if merged_writer is not None:
+    merged_writer.close()
+merged_table = pq.read_table("merged_data.parquet")
+
+
+conn_string = 'postgresql://oluwaseyi:root@postgres:5432/yellow_cabs_db'
+db = create_engine(conn_string)
+
+
+chunk_size = 200000
+num_rows = len(merged_table)
+start = 0
+
+while start < num_rows:
+    end = min(start + chunk_size, num_rows)
+    batch = merged_table[start:end].to_pandas()
+
+
+    time_start = time()
+    df = next(batch)
+
+    df.to_sql('yellow_cabs_table', con=db, if_exists='append', index=False)
+    time_end = time()
+    print(f'inserted another chunk, took {time_end - time_start} seconds')
+
+
+
+
+Scratch Scratch
+
+output_file_path = 'csv_file_output.csv'
+
+    merged_writer = None
+    download = []
+    for month in ['%0.2d' % i for i in range(1, 2)]:
+        result = wget.download(f'https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2022-{month}.parquet')
+        table = pq.read_table(result)
+    #     if merged_writer is None:
+    #         merged_writer = pq.ParquetWriter("merged_data.parquet", table.schema)
+    #     merged_writer.write_table(table)
+    # if merged_writer is not None:
+    #     merged_writer.close()
+    #     df = table.to_pandas()
+    #     download.append(df)
+    # merged_table = pd.concat(download)
+    # merged_table.to_csv(output_file_path, index=False)
+        new_table = table.to_pandas()
+
+    # merged_table = pq.read_table("merged_data.parquet")
+    # pq_table = merged_table.to_pandas()
+    # pq_table.to_csv(output_file_path, index=False)
+    # df_iter = pd.read_csv('/Users/oluwaseyi/Desktop/YellowCabs_Project/csv_file.csv', index_col=False, chunksize=200000)
+
+    conn_string = 'postgresql://oluwaseyi:root@postgres_seyi:5432/yellow_cabs_db'
+    db = create_engine(conn_string)
+
+    new_table.to_sql('yellow_cabs_table', con=db, if_exists='append', index=False)
+
+
+    # df_iter = pd.read_csv(output_file_path, low_memory=False, chunksize=200000)
+    # for chunk in df_iter:
+    #     time_start = time()
+    #     chunk.to_sql('yellow_cabs_table', con=db, if_exists='append', index=False)
+    #     time_end = time()
+    #     print(f'inserted another chunk, took {time_end - time_start} seconds')
+
+
+    # # chunk_size = 200000
+    # # num_rows = len(merged_table)
+    # # start = 0
+    # #
+    # # while start < num_rows:
+    # #     end = min(start + chunk_size, num_rows)
+    # #     batch = merged_table[start:end].to_pandas()
+    # #
+#         time_start = time()
+#         new_table.to_sql('yellow_cabs_table', con=db, if_exists='append', index=False)
+#         time_end = time()
+#         print(f'inserted another chunk, took {time_end - time_start} seconds')
+# #
